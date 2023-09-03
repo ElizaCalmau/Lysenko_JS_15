@@ -1,4 +1,4 @@
-1. Task #1 Quadratic equation
+// 1. Task #1 Quadratic equation
 
 const calculate = (a, b, c) => {
     let discriminant = b**2 - 4 * a * c;    
@@ -33,7 +33,7 @@ const calculate = (a, b, c) => {
 
 console.log(calculate(1, 2, 3));
 
-2. Task #2 Factorial
+// 2. Task #2 Factorial
 let factorial = (num) => {
     let sum = 1;
     for(let i = 1; i <= num; i++){
@@ -45,7 +45,7 @@ let factorial = (num) => {
 console.log(factorial(5));
 
 
-3. Task #3 Calculator
+// 3. Task #3 Calculator
 let addition = (...args) => {
     let result = 0;
     for(let arg of args){
@@ -90,7 +90,7 @@ const calculator = (callback, ...args) => {
   console.log(calculator(multiplication, 10, 2))
 
 
-4. Task #4 Fibonacci
+// 4. Task #4 Fibonacci
 let n = prompt('Enter some number');
 const fib = (n) => {
     let n1 = 0;
@@ -109,5 +109,19 @@ const fib = (n) => {
   console.log(fib(n));
 
 
+// 5. Task #5 Pyramide
 
+let pyramide = (rows) => {
+        let starLength = 1;
+        let cageLength = rows - starLength;
+        for(let i = 0; i < rows; i++){
+            let cages = ''.padStart(cageLength, '#');
+            let stars = ''.padStart(starLength, "*");
+            console.log(`${cages}${stars}${cages}`);
+            cageLength--;
+            starLength += 2;
+        }
+    }
+    pyramide(5);
+    
 
