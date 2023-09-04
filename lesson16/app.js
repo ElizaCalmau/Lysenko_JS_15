@@ -63,3 +63,30 @@ const clearWhiteSpace = (str) => {
 
   palindrome("js");
  
+
+ // Additional tasks 
+// 1. Change a first character to Upper Case
+ let ucFirst = (str) => {
+   console.log(str.replace(str[0], str[0].toUpperCase())) ;
+ }
+ucFirst('elizabeth');
+
+
+// 2. Check spam 
+
+let checkSpam = (str) => {
+    if(str.match(/free/gi)){
+        console.log(str)
+    }
+    if(str.match(/say/gi)){
+        console.log(str)
+    }
+    
+}
+
+checkSpam('get a fRee gift');
+checkSpam('We are here to sAY "hello"');
+checkSpam ('lalala');
+checkSpam('hey, BeFree company is here');
+
+
