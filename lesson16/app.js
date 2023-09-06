@@ -2,10 +2,10 @@
 
 const reverse = (str) => {
     let reverseStr = '';
+
     for(let i = str.length-1; i >= 0; i--){
-         reverseStr += str[i];
+        reverseStr += str[i];
     }
-   
     console.log(reverseStr);
 }
 
@@ -25,10 +25,10 @@ countWords("Hi my name is Taras");
 // 3. Task #3 Clear whitespace
 
 const clearWhiteSpace = (str) => {
-    let srtingArr = str.split(' ')
+    const srtingArr = str.split(' ')
     let clearStr = ''
     for( let i = 0; i < srtingArr.length; i++){
-        if( srtingArr[i] !== NaN){
+        if( srtingArr[i] !== ' '){
             clearStr += srtingArr[i];
         }
     }
@@ -41,7 +41,10 @@ const clearWhiteSpace = (str) => {
   // 4. Task #4 Max length
 
   const cutStr = (str, maxLength) => {
-   console.log(str.slice(0, maxLength))    
+   console.log(str.slice(0, maxLength));
+   if(str.length > maxLength){
+    console.log(`${str.slice(0, maxLength)}...`)
+   }  
   };
   
   cutStr("Hello", 5);
@@ -51,16 +54,21 @@ const clearWhiteSpace = (str) => {
   //5. Palindrome
 
   const palindrome = (str) => {
-    if(str[0].match(str[str.length-1])){
-        console.log(`${str} is Palindrome`)
-    } else {
-        console.log(`${str} is not Palindrome`)
+     let j = str.length - 1;
+     for(let i = 0; i < str.length; i++){
+        let currentStart = str[i];
+            for(; j>= 0; j--){
+                let currentEnd = str[j];
+                if(currentStart === currentEnd){
+                 j--;
+                 break;    
+                }return; 
+            }
+        }console.log(`${str} is a palindrome`)
     }
-
-  };
-  
+ 
   palindrome("tenet");
-
+  palindrome('anta')
   palindrome("js");
  
 
@@ -74,7 +82,7 @@ ucFirst('elizabeth');
 
 // 2. Check spam 
 
-let checkSpam = (str) => {
+const checkSpam = (str) => {
     if(str.match(/free/gi)){
         console.log(str)
     }
