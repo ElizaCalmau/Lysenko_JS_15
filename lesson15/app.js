@@ -1,37 +1,30 @@
 // 1. Task #1 Quadratic equation
 
 const calculate = (a, b, c) => {
-    let discriminant = b**2 - 4 * a * c;    
+    const discriminant = b**2 - 4 * a * c;    
+    const roots = {
+        x1: null,
+        x2: null,
+    }
     if (discriminant > 0) {
-        let rootFromDisc = Math.sqrt(discriminant);
-        let rootOne = ( -b + rootFromDisc) / 2 * a;
-        let rootTwo = ( -b - rootFromDisc) / 2 * a;
-        let roots = {
-            "x1": rootOne,
-            "x2": rootTwo
-        }
-        return roots;
+        const rootFromDisc = Math.sqrt(discriminant);
+        const rootOne = ( -b + rootFromDisc) / 2 * a;
+        const rootTwo = ( -b - rootFromDisc) / 2 * a;
+        roots.x1 = rootOne;
+        roots.x2 = rootTwo;
     }
-    if (discriminant == 0){
-        let rootFromDisc = Math.sqrt(discriminant);
-        let root = ( -b + rootFromDisc) / 2 * a;
-        let roots = {
-            "x1": root,
-            "x2": null,
-        }
-        return roots;
+    if (discriminant === 0){
+        const rootFromDisc = Math.sqrt(discriminant);
+        const root = ( -b + rootFromDisc) / 2 * a;
+        roots.x1 = root;
     }
-    if (discriminant < 0){
-        let roots = {
-            "x1": null,
-            "x2": null
-        }
-        return roots;
-    }
+
+    return roots;
 
 }
 
-console.log(calculate(1, 2, 3));
+console.log(calculate(1, -6, 9));
+console.log(calculate(1, -9, 20));
 
 // 2. Task #2 Factorial
 let factorial = (num) => {
@@ -91,19 +84,19 @@ const calculator = (callback, ...args) => {
 
 
 // 4. Task #4 Fibonacci
-let n = prompt('Enter some number');
+const n = prompt('Enter some number');
 const fib = (n) => {
     let n1 = 0;
     let n2 = 1;
     let nextNumber;
-    let fibonacciSequence = [];
+    let fibonacciSequence = '';
     for (let i = 1; i <= n; i++) {
-        fibonacciSequence.push(n1);
+        fibonacciSequence += n1;
         nextNumber = n1 + n2;
         n1 = n2;
         n2 = nextNumber;
     }
-    return fibonacciSequence;
+    return `${fibonacciSequence} is a fibonacci sequence`;
   };
 
   console.log(fib(n));
@@ -111,7 +104,7 @@ const fib = (n) => {
 
 // 5. Task #5 Pyramide
 
-let pyramide = (rows) => {
+const pyramide = (rows) => {
         let starLength = 1;
         let cageLength = rows - starLength;
         for(let i = 0; i < rows; i++){
