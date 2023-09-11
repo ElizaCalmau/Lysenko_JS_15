@@ -13,7 +13,7 @@ filterRange(arr, 3, 7);
 
 const arrOfNums = [324, 32423, -3242, 544, 0, 23, -454, 22, 4];
 const sortArr = (arr) => {
-    console.log(arr.sort((a, b) => { return a-b }))
+    console.log(arr.sort((a, b) => { return a - b }))
 }
 sortArr(arrOfNums);
 
@@ -79,7 +79,7 @@ const usersArr = [
   ];
 
 const sortUsers = (arr) =>{
-    let newArray = arr.sort((a,b) =>{
+    const newArray = arr.sort((a,b) =>{
         let aToLower = a.name.toLowerCase();
         let bToLower = b.name.toLowerCase();
         if(aToLower < bToLower){
@@ -99,7 +99,7 @@ sortUsers(usersArr);
 //Use reduce method
 
 const minMaxAge = (arr) =>{
-    let obj = arr.reduce((acc, value) => {
+    const obj = arr.reduce((acc, value) => {
         if(value.age < acc.min){
             acc.min = value.age;
         }
