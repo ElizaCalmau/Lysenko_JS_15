@@ -127,10 +127,11 @@ console.log(isPrime(52));
 
 const isArmstrong = (n) => {
     const numsArr = n.toString().split('');
+    const multiplier = numsArr.length
     console.log(numsArr);
     let mult = 0;
     numsArr.map( (el) => {
-        return mult += el*el*el;
+        return mult += el ** multiplier;
     })
     if( mult === n){
         console.log(`${n} is Armstrong's num`)
@@ -138,5 +139,5 @@ const isArmstrong = (n) => {
 };
 
 isArmstrong(4);
-
+isArmstrong(23);
 isArmstrong(153);
