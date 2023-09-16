@@ -3,9 +3,9 @@
 const getDaysInYear = (year) => {
     const firstDate = new Date(year, 0);
     const lastDate = new Date(year, 12, 0);
-    const aMS = firstDate.getTime();
-    const bMS = lastDate.getTime();
-    const differece = bMS - aMS;
+    const firstDateInMS = firstDate.getTime();
+    const secondDateInMS = lastDate.getTime();
+    const differece = secondDateInMS - firstDateInMS;
     const daysInYear = differece/1000/60/60/24 + 1;
     console.log(daysInYear);
 };
