@@ -23,7 +23,7 @@ console.log(createArr.apply(obj)); //3-rd solution
 
 //2. Task#2  CALCULATOR
 //First solution
-const calculatorConstr = {
+const calculator1 = {
   result: 0,
   Sum,
   Sub,
@@ -48,8 +48,8 @@ function Div(arg) {
   this.result /= arg;
   return this;
 }
-calculatorConstr.Sum(2).Sub(1).Mul(199).Div(12);
-const res = calculatorConstr.result;
+calculator1.Sum(2).Sub(1).Mul(199).Div(12);
+const res = calculator1.result;
 console.log(res);
 
 //Second Solution
@@ -76,111 +76,139 @@ calculator.sum(3).mul(3).div(2);
 const lastResult = calculator.result;
 console.log(lastResult);
 
+
+
 // 3. Task #3 Constructor Function, Create a Car Constructor
 
-function Car(model, color, age, speed, gasTank, started) {
+function startEngine(){
+  this.started = true;
+  return this; // ret true and this.started = true;
+}
+function drive(){
+  const emptyGas = this.checkGasIsEmpty;
+  const started = this.started;
+  if(started && !emptyGas) {
+    this.speed += 30;
+  }
+  return this;
+}
+
+function stop (){
+  this.speed = 0;
+  this.started = false;
+  return this;
+}// to finish a task!!!!!!
+function Car(model, color, age, speed, gasTank, started, maxSpeed, maxTankVol) {
   this.model = model;
   this.color = color;
   this.age = age;
   this.speed = speed;
   this.gasTank = gasTank;
   this.started = started;
+  this.maxSpeed = maxSpeed;
+  this.maxTankVol = maxTankVol;
+  this.startEngine = startEngine;
+  this.drive = drive;
+  this.checkGasIsEmpty = function(){
+   return this.gasTank === 0;
+  };
+
 }
 
-Car.prototype.startEngine = function () {
-  if (this.gasTank > 0) {
-    this.started = true ? (this.speed += 30) : this.speed == 0;
-    console.log(this.model + "'s engine started." + " Speed is " + this.speed);
-  } else {
-    console.log(this.model + " can't start. Empty gas tank.");
-  }
-  return this;
-};
+// Car.prototype.startEngine = function () {
+//   if (this.gasTank > 0) {
+//     this.started = true ? (this.speed += 30) : this.speed == 0;
+//     console.log(this.model + "'s engine started." + " Speed is " + this.speed);
+//   } else {
+//     console.log(this.model + " can't start. Empty gas tank.");
+//   }
+//   return this;
+// };
 
-Car.prototype.drive = function () {
-  if (this.gasTank > 0 && this.started) {
-    console.log("We are driving");
-    return this;
-  }
-};
+// Car.prototype.drive = function () {
+//   if (this.gasTank > 0 && this.started) {
+//     console.log("We are driving");
+//     return this;
+//   }
+// };
 
-Car.prototype.stop = function () {
-  this.started = false;
-  this.speed = 0;
-  console.log("The car is stoped, the speed is " + this.speed);
-  return this;
-};
+// Car.prototype.stop = function () {
+//   this.started = false;
+//   this.speed = 0;
+//   console.log("The car is stoped, the speed is " + this.speed);
+//   return this;
+// };
 
-Car.prototype.speedUp = function (arg) {
-  if (this.speed > 0 && this.speed < 200) {
-    this.speed += arg;
-    this.gasTank -= 5;
-    if (this.speed > 199) {
-      console.log("Maximum speed have been reached");
-      this.speed = 200;
-      return this;
-    } else if (this.gasTank <= 0) {
-        this.stop();
-      } else {
-        console.log(
-          "You are speeding up for " +
-            arg +
-            " kilomiters an hour" +
-            " The speed is " +
-            this.speed +
-            " The gas is " +
-            this.gasTank +
-            " litres"
-        );
-      }
-    } 
-     return this;
-  }
+// Car.prototype.speedUp = function (arg) {
+//   if (this.speed > 0 && this.speed < 200) {
+//     this.speed += arg;
+//     this.gasTank -= 5;
+//     if (this.speed > 199) {
+//       console.log("Maximum speed have been reached");
+//       this.speed = 200;
+//       return this;
+//     } else if (this.gasTank <= 0) {
+//         this.stop();
+//       } else {
+//         console.log(
+//           "You are speeding up for " +
+//             arg +
+//             " kilomiters an hour" +
+//             " The speed is " +
+//             this.speed +
+//             " The gas is " +
+//             this.gasTank +
+//             " litres"
+//         );
+//       }
+//     } 
+//      return this;
+//   }
 
 
 
-Car.prototype.slowDown = function (arg) {
-  if (this.speed > 0) {
-    this.speed -= arg;
-    console.log(
-      "You are slowing down for " +
-        arg +
-        " kilomiters an hour" +
-        " The speed is " +
-        this.speed +
-        " The gas is " +
-        this.gasTank +
-        " litres"
-    );
-  }
-  if (this.speed == 0) {
-    this.stop();
-  }
-  return this;
-};
+// Car.prototype.slowDown = function (arg) {
+//   if (this.speed > 0) {
+//     this.speed -= arg;
+//     console.log(
+//       "You are slowing down for " +
+//         arg +
+//         " kilomiters an hour" +
+//         " The speed is " +
+//         this.speed +
+//         " The gas is " +
+//         this.gasTank +
+//         " litres"
+//     );
+//   }
+//   if (this.speed == 0) {
+//     this.stop();
+//   }
+//   return this;
+// };
 
-Car.prototype.addGas = function (arg) {
-  this.gasTank += arg;
-  if (this.gasTank <= 20) {
-    console.log(
-      "You have added " +
-        arg +
-        " litres of gas to your " +
-        this.model +
-        " The main quantity of gas is " +
-        this.gasTank
-    );
-  } else {
-    console.log(
-      "Your tank car is 20 litres, you can not add more than 20 litres"
-    );
-    return (this.gasTank = 20);
-  }
-  return this;
-};
-let newCar = new Car("BMW", "red", 5, 0, 20, false);
+// Car.prototype.addGas = function (arg) {
+//   this.gasTank += arg;
+//   if (this.gasTank <= 20) {
+//     console.log(
+//       "You have added " +
+//         arg +
+//         " litres of gas to your " +
+//         this.model +
+//         " The main quantity of gas is " +
+//         this.gasTank
+//     );
+//   } else {
+//     console.log(
+//       "Your tank car is 20 litres, you can not add more than 20 litres"
+//     );
+//     return (this.gasTank = 20);
+//   }
+//   return this;
+// };
+ let newCar = new Car("BMW", "red", 5, 0, 20, false, 200, 20);
 
-newCar.startEngine().drive().speedUp(100).slowDown(10).speedUp(90).slowDown(20).addGas(10).slowDown(160).speedUp(10).speedUp(20).speedUp(30).speedUp(2)
+// newCar.startEngine().drive().speedUp(100).slowDown(10).speedUp(90).slowDown(20).addGas(10).slowDown(160).speedUp(10).speedUp(20).speedUp(30).speedUp(2)
 
 
 // 4. Task#4 Poker hand
@@ -191,9 +219,9 @@ function Poker(players, names) {
   this.players = players;
   this.names = names;
   
-  let suits = ['♦️', '♣️', '♥️', '♠️'];
-  let cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-  let desk = [];
+  const suits = ['♦️', '♣️', '♥️', '♠️'];
+  const cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const desk = [];
 
   for(let suit of suits){
     for(let card of cards){
@@ -211,7 +239,7 @@ function Poker(players, names) {
 
 function checkFlush(cards){
   let suitsArr = cards.map(card => card.slice(-1));
-  let uniqueVals = [...new Set(suitsArr)];
+  let uniqueVals = [...new Set(suitsArr)];//Set returns a unique array
   return uniqueVals.length === 1;
 
 }
@@ -228,7 +256,7 @@ function checkSequence(cards) {
 
 }
 
-let game = new Poker('',['Liza', 'Katya', 'Nastya']);
+const game = new Poker('',['Liza', 'Katya', 'Nastya']);
 
 console.log(checkFlush(game.cardSet['Liza']));
 console.log(checkSequence(game.cardSet['Liza']));
