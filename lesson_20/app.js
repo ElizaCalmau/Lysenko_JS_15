@@ -25,30 +25,30 @@ console.log(createArr.apply(obj)); //3-rd solution
 //First solution
 const calculator1 = {
   result: 0,
-  Sum,
-  Sub,
-  Mul,
-  Div,
+  sum,
+  sub,
+  mul,
+  div,
 };
 
-function Sum(arg) {
+function sum(arg) {
   this.result += arg;
   return this;
 }
-function Sub(arg) {
+function sub(arg) {
   this.result -= arg;
   return this;
 }
-function Mul(arg) {
+function mul(arg) {
   this.result *= arg;
   return this;
 }
 
-function Div(arg) {
+function div(arg) {
   this.result /= arg;
   return this;
 }
-calculator1.Sum(2).Sub(1).Mul(199).Div(12);
+calculator1.sum(2).sub(1).mul(199).div(12);
 const res = calculator1.result;
 console.log(res);
 
