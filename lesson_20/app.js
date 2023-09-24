@@ -79,25 +79,60 @@ console.log(lastResult);
 
 
 // 3. Task #3 Constructor Function, Create a Car Constructor
-
-function startEngine(){
-  this.started = true;
-  return this; // ret true and this.started = true;
-}
-function drive(){
-  const emptyGas = this.checkGasIsEmpty;
-  const started = this.started;
-  if(started && !emptyGas) {
-    this.speed += 30;
+function startEngine (){
+  if(this.checkGas){
+    this.started = true;
+    this.speed = 30;
+    console.log(`You car is started`);
   }
   return this;
 }
 
-function stop (){
-  this.speed = 0;
-  this.started = false;
+function speedUp (n) {
+  if(this.speed > 0){
+    this.speed += n;
+    this.gasTank -= 5;
+    if(this.gasTank <= 0){
+      this.stop();
+    }
+  } 
+  if(this.speed >= this.maxSpeed){
+    this.speed = this.maxSpeed;
+  }
   return this;
-}// to finish a task!!!!!!
+}
+
+function stop(){
+  if(this.gasTank <= 0){
+    this.speed = 0;
+    this.gasTank = 0;
+    this.started = false;
+    console.log(`You have ${this.gasTank} l of gas`)
+  } 
+  return this;
+}
+
+function slowDown(n){
+  this.speed -= n;
+  this.gasTank -= 5;
+  if(this.gasTank <= 0){
+    this.stop();
+  }
+  if(this.speed <= 0){
+    this.started = false;
+  }
+  return this;
+
+}
+
+function addGas(n){
+  this.gasTank += n;
+  if(this.gasTank > this.maxTankVol){
+    this.gasTank = this.maxTankVol;
+  }
+  return this;
+}
+
 function Car(model, color, age, speed, gasTank, started, maxSpeed, maxTankVol) {
   this.model = model;
   this.color = color;
@@ -107,13 +142,19 @@ function Car(model, color, age, speed, gasTank, started, maxSpeed, maxTankVol) {
   this.started = started;
   this.maxSpeed = maxSpeed;
   this.maxTankVol = maxTankVol;
+  this.checkGas = function(){
+    if(this.gasTank){
+    }
+    return this;
+  }
   this.startEngine = startEngine;
-  this.drive = drive;
-  this.checkGasIsEmpty = function(){
-   return this.gasTank === 0;
+  this.speedUp = speedUp;
+  this.stop = stop;
+  this.slowDown = slowDown;
+  this.addGas = addGas;
   };
 
-}
+
 
 // Car.prototype.startEngine = function () {
 //   if (this.gasTank > 0) {
@@ -206,7 +247,7 @@ function Car(model, color, age, speed, gasTank, started, maxSpeed, maxTankVol) {
 //   }
 //   return this;
 // };
- let newCar = new Car("BMW", "red", 5, 0, 20, false, 200, 20);
+ let BMW = new Car("BMW", "red", 5, 0, 20, false, 200, 20);
 
 // newCar.startEngine().drive().speedUp(100).slowDown(10).speedUp(90).slowDown(20).addGas(10).slowDown(160).speedUp(10).speedUp(20).speedUp(30).speedUp(2)
 
@@ -239,7 +280,7 @@ function Poker(players, names) {
 
 function checkFlush(cards){
   let suitsArr = cards.map(card => card.slice(-1));
-  let uniqueVals = [...new Set(suitsArr)];//Set returns a unique array
+  let uniqueVals = [...new Set(suitsArr)];//Set returns an array with unique values
   return uniqueVals.length === 1;
 
 }
