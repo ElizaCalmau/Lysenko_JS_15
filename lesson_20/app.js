@@ -256,8 +256,7 @@ function Car(model, color, age, speed, gasTank, started, maxSpeed, maxTankVol) {
 
 
 
-function Poker(players, names) { 
-  this.players = players;
+function Poker(names) { 
   this.names = names;
   
   const suits = ['♦️', '♣️', '♥️', '♠️'];
@@ -279,8 +278,8 @@ function Poker(players, names) {
 
 
 function checkFlush(cards){
-  let suitsArr = cards.map(card => card.slice(-1));
-  let uniqueVals = [...new Set(suitsArr)];//Set returns an array with unique values
+  const suitsArr = cards.map(card => card.slice(-1));
+  const uniqueVals = [...new Set(suitsArr)];//Set returns an array with unique values
   return uniqueVals.length === 1;
 
 }
@@ -297,7 +296,7 @@ function checkSequence(cards) {
 
 }
 
-const game = new Poker('',['Liza', 'Katya', 'Nastya']);
+const game = new Poker(['Liza', 'Katya', 'Nastya']);
 
 console.log(checkFlush(game.cardSet['Liza']));
 console.log(checkSequence(game.cardSet['Liza']));
