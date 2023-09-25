@@ -15,41 +15,43 @@
 //  console.log(user1.getInfo()); // Виводить: "Ім'я: Іван, Вік: 25, Email: ivan@example.com"
 //  //user2.getInfo(); // Виводить: "Ім'я: Марія, Вік: 30, Email: maria@example.com"
 
-
 const university = {
-    universityName: 'Polytechnic',
+  universityName: "Polytechnic",
+  dean: "mr. Sokol",
+};
 
-  };
-  
-  const faculty = Object.create(university, {
-    facultyName:{ 
-        value: 'Physics and mathematics',
-        enumerable: true,
-        writable:true,
-        configurable: true
-    },
-    groups: {
-        value: [],
-        enumerable: true,
-        writable:true,
-        configurable: true
-    }
-}
-  )
+const faculty = Object.create(university, {
+  facultyName: {
+    value: "Physics and mathematics",
+    configurable: true,
+  },
+  groups: {
+    value: [[]],
+    configurable: true,
+  },
+});
 
-function enlistStudent(...val){
-    if(this.groups.length < 12){
-        return (this.groups.push(...val));
-    } 
+function enlistStudent(student) {
+  const lastGroup = this.groups[this.groups.length - 1];//the last group length
+  if (lastGroup.length < 4) {
+    //Made my condition shorter for more easy checking of result
+    lastGroup.push(student); //no need to push last group in arr as i did it in 42-th string, beacuse it's already exists
+  } else {
+    const nextGroup = [];//new group
+    nextGroup.push(student);
+    this.groups.push(nextGroup);  // push new Array to Nested Array
+  }
 }
-  
-  faculty.universityName;
-  // Polytechnic
-  
-  enlistStudent.apply(faculty, ["Taras","Angela","Serhii"])//"Julia", "Anna", "Andrii", "David", "Yana", "Olena", "Oleksandr", "Oleg", "Dmytro", "Mykola"]);
-  enlistStudent.apply(faculty, ["Taras","Angela","Serhii",])
-  enlistStudent.apply(faculty, ["Taras","Angela","Serhii",])
-  enlistStudent.apply(faculty, ["Taras","Angela","Serhii","Yeuhen"])
-  enlistStudent.apply(faculty, ["Yeuhen"])
-  faculty.groups;
-  // [['Taras']]
+
+faculty.universityName;
+// Polytechnic
+
+enlistStudent.call(faculty, "Taras");
+enlistStudent.call(faculty, "Julia");
+enlistStudent.call(faculty, "Oleg");
+enlistStudent.call(faculty, "Anna");
+enlistStudent.call(faculty, "Yana");
+enlistStudent.call(faculty, "Denys");
+enlistStudent.call(faculty, "Olena");
+enlistStudent.call(faculty, "Olga");
+enlistStudent.call(faculty, "David");
