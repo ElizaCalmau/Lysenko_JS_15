@@ -23,7 +23,7 @@ const university = {
 const faculty = Object.create(university, {
   facultyName: {
     value: "Physics and mathematics",
-    configurable: true,
+    configurable: true, // writable:true, and configurable:true - are defaults
   },
   groups: {
     value: [[]],
@@ -55,3 +55,92 @@ enlistStudent.call(faculty, "Denys");
 enlistStudent.call(faculty, "Olena");
 enlistStudent.call(faculty, "Olga");
 enlistStudent.call(faculty, "David");
+
+
+// function Animal(name) {
+//   this.name = name;
+// }
+
+// Animal.prototype.sayHello = function() {
+//   console.log(`Привіт, я ${this.name}`);
+// };
+
+// function Cat(name, color) {
+//   Animal.call(this, name); // Виклик конструктора батька
+//   this.color = color;
+// }
+
+// Cat.prototype = Object.create(Animal.prototype);
+// Cat.prototype.constructor = Cat;
+
+// // Тепер створимо об'єкт Cat
+// const cat = new Cat("Мурка", "Сірий");
+// console.log(cat.name); // Виведе: "Мурка"
+// console.log(cat.color); // Виведе: "Сірий"
+// cat.sayHello(); // Виведе: "Привіт, я Мурка"
+
+function Animal(name) {
+  this.name = name;
+}
+
+Animal.prototype.getInfo = function(obj){
+  for(let key in obj){
+    console.log(`${key} : ${obj[key]}`);
+  }
+}
+
+function Mammal(name, lives) {
+  Animal.call(this, name);
+  this.lives = lives;
+}
+
+Mammal.prototype = Object.create(Animal.prototype);
+Mammal.prototype.constructor = Mammal;
+
+Mammal.prototype.run = function (){
+  console.log(`${this.name} can run`);
+  return this;
+}
+
+function Bird(name, lives) {
+  Animal.call(this, name);
+  this.lives = lives;
+}
+Bird.prototype = Object.create(Animal.prototype);
+Bird.prototype.constructor = Bird;
+
+Bird.prototype.fly = function (){
+  console.log(`${this.name} can fly`);
+  return this;
+}
+
+function Dog(name, live, breed) {
+  Mammal.call(this, name, live);
+  this.breed = breed;
+}
+Dog.prototype = Object.create(Mammal.prototype);
+Dog.prototype.constructor = Dog;
+
+
+function Penguin(name, live, species) {
+  Bird.call(this, name, live);
+  this.species = species;
+}
+Penguin.prototype = Object.create(Bird.prototype);
+Penguin.prototype.constructor = Penguin;
+
+Penguin.prototype.fly = function(){
+  console.log(`${this.name} can't fly`);
+  return this;
+}
+
+Penguin.prototype.swim = function (){
+  console.log(`${this.name} can swim!`)
+  return this;
+}
+
+
+const monkey = new Mammal('Chimpo', 'Jungles');
+const bird = new Bird('Twitty', 'Forest');
+const dog = new Dog ('Chuppy', 'House', 'Retriver');
+const penguin = new Penguin('Denny', 'Alasca', 'Megadyptes antipodes');
