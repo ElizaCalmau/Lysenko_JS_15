@@ -13,7 +13,7 @@ const cachesDecorator = (func) => {
     let result = func.call(this, num); // put the result of function that calls with object and argument num to veriale result 
     cache.set(num, result); // set properties to cache collection num - key, result- value
   }
-  return cache.get(num); // getting valut 'result' by key 'num'
+  return cache; // getting valut 'result' by key 'num'
  }
 };
 
@@ -102,11 +102,11 @@ const arr = [
 ];
 
 const deepCopy = (arr) => {
-};
+
 let copy = deepCopy(arr);
 console.log(copy(arr));
 
-
+};
 // 6. DOM
 const table = {
   tagName: "table",
