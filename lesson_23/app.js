@@ -5,10 +5,10 @@ class bankAccount {
     this._balance = balance;
     this.accountHolder = accountHolder;
   }
-  get getBalance() {
+  get balance() {
     return this._balance;
   }
-  set setBalance(n) {
+  set balance(n) {
     if (n > 0) {
       return (this._balance = n);
     } else {
@@ -24,6 +24,8 @@ class bankAccount {
 }
 
 let user = new bankAccount("100", "Alice");
+console.log(`user's balance is ${user.balance}`);
+console.log(`user's balance is ${user.balance = '1000'}`);
 
 //2.Encapsulation
 
@@ -32,7 +34,7 @@ class BankAccount {
   constructor(accountHolder) {
     this.accountHolder = accountHolder;
   }
-  get getBalance() {
+  get balance() {
     return this.#balance;
   }
   get userName() {
@@ -48,6 +50,9 @@ class BankAccount {
 }
 
 let guest = new BankAccount("Jenny");
+console.log(`guest's balance is ${guest.balance}`);
+console.log(`guest's name is ${guest.userName}`);
+console.log(`guest's name is ${guest.userName = 'Anna'}`);
 
 // 3. Inheritance and Polymorphism
 
@@ -56,7 +61,11 @@ class Animal {
     this.name = name;
   }
   getInfo() {
-    return this.name;
+    let info = {
+      name: this.name,
+    }
+    console.log(info);
+    return info;
   }
 }
 
@@ -68,12 +77,8 @@ class Mammal extends Animal {
   lives() {
     return this.live;
   }
-  getInfo() {
-    console.log(`${super.getInfo()} lives in ${this.lives()}`);
-    return this;
-  }
 
-  set speedOfRun(n) {
+  speedOfRun(n) {
     if (n > 0) {
       this.speed = n;
       console.log(`${this.name} runs with speed ${this.speed}`);
@@ -82,6 +87,14 @@ class Mammal extends Animal {
       console.log(`${this.name} doesn't run at this moment`);
       return this.speed;
     }
+  }
+  getInfo(){
+    super.getInfo();
+    let info = {
+      lives: this.lives(),
+    }
+    console.log(info);
+     return info;
   }
 }
 
@@ -93,15 +106,20 @@ class Bird extends Animal {
   lives() {
     return this.live;
   }
-  getInfo() {
-    console.log(`${super.getInfo()} lives in ${this.lives()}`);
-    return this;
-  }
-
+ 
   fly() {
     this.flies = true;
-    console.log(`${this.name} can fly`);
-    return this;
+    //console.log(`${this.name} can fly`);
+    return this.flies;
+  }
+  getInfo(){
+    super.getInfo();
+    let info = {
+      lives: this.lives(),
+      fly: this.fly(),
+    }
+    console.log(info);
+     return info;
   }
 }
 
@@ -113,12 +131,15 @@ class Dog extends Mammal {
   getBreed() {
     return this.breed;
   }
-
-  getInfo() {
+  getInfo(){
     super.getInfo();
-    console.log(`${this.name}'s breed is ${this.getBreed()}`);
-    return this;
+    let info = {
+      breed: this.getBreed(),
+    }
+    console.log(info);
+    return info;
   }
+
 }
 
 class Penguin extends Bird {
@@ -129,22 +150,21 @@ class Penguin extends Bird {
   fly() {
     this.flies = false;
     console.log(`${this.name} can't fly`);
-    return this;
+    return this.flies;
   }
-  getInfo() {
-    super.getInfo();
-    console.log(`${this.name}'s species is ${this.species}`);
-    return this;
-  }
+
 }
 
-let monkey = new Mammal("Chimpo", "Jungle");
-let bird = new Bird("Twitty", "Forest");
-let dog = new Dog("Chuppy", "Yard", "Bassed Hound");
-let penguin = new Penguin("Pepe", "Australia", "Royal penguin");
+const monkey = new Mammal("Chimpo", "Jungle");
+const bird = new Bird("Twitty", "Forest");
+const dog = new Dog("Chuppy", "Yard", "Bassed Hound");
+const penguin = new Penguin("Pepe", "Australia", "Royal penguin");
 
-
-
+monkey.getInfo();
+bird.getInfo();
+dog.speedOfRun(10);
+dog.getInfo();
+penguin.getInfo();
 //4. Create class Vehicle
 
 class Vehicle {
