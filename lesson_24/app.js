@@ -2,23 +2,23 @@
 
 let count = 0;
 let timerId = setInterval(() => {
-    console.log(++count);
+    //console.log(++count);
     if(count === 5){
         clearInterval(timerId);
     }
 }, 1000)
 
 //2 Delay
+const delayedLoop = (i) => {
+    if (i <= 5) {
+      setTimeout(() => {
+        console.log(i);
+        delayedLoop(i + 1);
+      }, 1000);
+    }
+  };
+  delayedLoop(1)
 
-let i = 0;
-function counter(){
-    i++;
-    console.log(i);
-    setTimeout(counter, 1000)
-}
-setTimeout(counter, 1000)
-
-    
 //3 random state of promise
 let n = (Math.random()).toFixed(1);
 console.log(n);
@@ -31,9 +31,7 @@ let prom = new Promise((resolve, reject) =>{
         return reject('no');
     }
 });
-prom.catch((err)=>{
-    console.log('Threw error')
-});
+
 prom.then(() =>{
     console.log('everything works properly');
 }, () =>{
