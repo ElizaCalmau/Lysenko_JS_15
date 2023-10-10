@@ -2,20 +2,10 @@
 class ProductsService {
     constructor(url){
         this.url = url;
-        this.products = fetch(this.url).then(res => res.json()).then(console.log);
     }
-    // getProducts(){
-    //     //this.response = fetch(this.url)//returns response
-    //     console.log(this.response);
-    //     this.response.then(res => { //res - body of response
-    //         if(!res.ok){//res.ok - means status: 200, no low-level errors
-    //             throw new Error(`Network response was not ok`);//if response has mistake I will throw error
-    //         }
-    //         return res.json();//if response is ok read it from json format 
-    //     }).then(res => {console.log(res)})//output arr with products (typrof product is obj)
-    // }
-    getOneProduct(){  
-        const oneProductUrl = `${this.url}/1`; //add to url /1
+
+    getOneProduct(id){  
+        const oneProductUrl = `${this.url}/${id}`; 
         fetch(oneProductUrl).then(res => res.json()).then(console.log);
     }
     searchByKeyword(){
@@ -43,68 +33,62 @@ class ProductsService {
         fetch(category).then(res => res.json()).then(console.log);
     }
 
-    addNewProduct(){
+    addNewProduct(title, description, price, brand){
         fetch(`${this.url}/add`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                title: 'iPhone XX',
-                description: 'The 20\'s model of apple phone',
-                price: 1000,
-                brand: 'Apple'
+                title: title,
+                description: description,
+                price: price,
+                brand: brand
             })
         })
         .then(res => res.json())
         .then(console.log);
         };
-    updateProd(){
-        fetch(`${this.url}/54`, {
+    updateProd(id, title){
+        fetch(`${this.url}/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type' : 'application/json' },
             body: JSON.stringify({
-                title:'iPhone 15'
+                title: title
             })
         })
         .then( res => res.json())
         .then(console.log)
     }
-    deleteProd(){
-        fetch(`${this.url}/32`, {
+
+    deleteProd(id = Math.floor(Math.random() * (150 - 5)) + 5){
+        console.log(`id is ${id}`)
+        fetch(`${this.url}/${id}`, {
             method: 'DELETE'
+        }).then( res => {
+            if(!res.ok){
+                throw Error(`No such id ${id}`)
+            }
+           return res.json();
         })
-        .then(res => res.json())
         .then(console.log)
-    }
-    delete4Prods(){
-        for(let i = 1; i <= 4; i++){
-            fetch(`${this.url}/${i}`, {
-                method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(console.log)
-        }
-    }
-    deleteRandomly(){
-        let n = Math.floor(Math.random() * (101 - 5)) + 5
-        console.log(`The random id is ${n}`)
-        fetch(`${this.url}/${n}`, {
-            method: 'DELETE'
+        .catch( err => {
+            console.error(err)
         })
-        .then(res => res.json())
-        .then(console.log);
     }
+    
 }
 const products = new ProductsService('https://dummyjson.com/products');
-// products.getProducts();
-products.getOneProduct();
+
+ products.getOneProduct(3);
 products.searchByKeyword();
-products.prodsTitlePrice();
+// products.prodsTitlePrice();
 // products.limitQuantityOfProds();
 products.limitAndSpecificDataOfProd();
 products.searchAllCategories();
-products.searchByCategory();
-products.addNewProduct();
-products.updateProd();
+// products.searchByCategory();
+products.addNewProduct('iPhone 20', '20th model of apple phone', 500, 'Apple');
+products.updateProd(10,'iPhone 15');
+products.deleteProd(1);
+products.deleteProd(2);
+products.deleteProd(3);
+products.deleteProd(4);
 products.deleteProd();
-products.delete4Prods();
-products.deleteRandomly();
