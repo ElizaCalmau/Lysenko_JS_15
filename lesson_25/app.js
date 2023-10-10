@@ -40,7 +40,7 @@ const printResponse = async (n) => {
     for(let i = 1; i <= n; i++){
         promiseArr.push(randomResolve());
     }
-    let result = await Promise.all(promiseArr);
+    const result = await Promise.all(promiseArr);
     console.log(result);
     return result;
   };
@@ -56,13 +56,16 @@ const printResponse = async (n) => {
   //4 casino
 
   const randomNums = () =>{
-    const n = Math.floor(Math.random() * (10 - 1)) + 1;
+    const n = Math.floor(Math.random() * (10 - 0)) + 0;
     console.log(`${n} seconds have passed`);
     return new Promise((resolve, reject) => {
        setTimeout(()=>{
         if(n % 2 === 0){
             resolve({value: n, color: 'red', num: 'even'});
-        } else {
+        } else if( n === 0) {
+            resolve({value: n, color: 'green', num: 0});
+        }
+        else {
             reject ({value: n, color: 'black', num: 'odd'},)
         }
 
@@ -70,16 +73,6 @@ const printResponse = async (n) => {
     })
     
   }
-//   let stakes;
-//   randomNums().then((res) => {
-//     console.log(res);
-//     stakes = Object.values(res);
-//     console.log(stakes)
-//   }).catch((err) => {
-//     console.log(err);
-//     stakes = Object.values(err);
-//     console.log(stakes)
-//   }) ;
 
 const stakeResults = async () => {
     const fulfilledStake = await Promise.any([randomNums(), randomNums()]);
