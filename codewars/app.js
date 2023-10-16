@@ -1,76 +1,28 @@
-// function squareSum(numbers){
-//     let sum = 0;
-//     numbers.forEach((num) => {
-//       return sum += num**2;
-//     })
-//     return sum;
-//   }
-
-//   console.log(squareSum([1,2,4]));
-
-//   function booleanToString(b){
-//     return b.toString();
-//   }
-
-//  console.log(booleanToString(true));
-
-
-//  function countPositivesSumNegatives(input) {
-//     let positive = input.filter((num) => 
-//     {
-//         return num > 0
-//     });
-//     let negative = input.filter((num) => 
-//     {
-//         return num < 0
-//     });
-
-//     let lengthOfPos = positive.length;
-//     let sumOfNeg = 0;
-//     negative.forEach((el) => {
-//         sumOfNeg += el;
-//     })
-
-//     let result = [];
-//     result.push(lengthOfPos, sumOfNeg);
-//      return result;
-//   }
-
-//   console.log(countPositivesSumNegatives([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15]));
-//   console.log(countPositivesSumNegatives())
-class Pet {
-    constructor(nameOwner, namePet){
-        this.nameOwner = nameOwner;
-        this.namePet = namePet;
-    };
-    get getOwnerName(){
-        return this.nameOwner;
-    };
-    get getPetName(){
-        return this.namePet;
-    };
-    set setNames(names){
-        const[owner, pet] = names.split(',');
-        this.nameOwner = owner;
-        this.namePet = pet;
-    }
+function createImg(src, alt) {
+    let img = document.createElement('img');
+    let container = document.querySelector('.container');
+    img.src = src;
+    img.alt = alt;
+    container.append(img);
 }
+//'MIDpdacjifSU395EcnZAHn79VQE9eBWwNLyGOHkV'
 
-class Labrador extends Pet{
-    constructor(nameOwner, namePet, age){
-        super(nameOwner, namePet);
-        this.age = age;
+
+async function loadImg(){
+    let url = new URL('https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?');
+    url.searchParams.set('sol', 900);
+    url.searchParams.set('camera', 'pancam');
+    url.searchParams.set('api_key', 'MIDpdacjifSU395EcnZAHn79VQE9eBWwNLyGOHkV');
+    let resp = await fetch(url);
+    let convertedData = await resp.json();
+    let src = '';
+    for(let i = 0; i < 5; i++){
+        src = convertedData.photos[i].img_src;
+        createImg(src, 'PanCam')
     }
-    get getAge(){
-        return this.age;
-    };
-    set setAge(age){
-        this.age = age;
-    };
+    //let imgSrc = convertedData.photos[2].img_src;
     
+
 }
 
-let dog = new Pet('John', 'Chuppy');
-dog.setNames = 'Andy, Lessy';
-
-let Jenny = new Labrador('Kevin','Jenny', 10)
+loadImg();
